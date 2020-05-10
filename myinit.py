@@ -13,21 +13,36 @@ import matplotlib.image as mpimg
 
 import csv
 
+from datetime import datetime
+
 def show_photo(file=None):
     img=mpimg.imread(file)
     imgplot = plt.imshow(img)
     plt.show()
 
 def get_photo_info(folder=None, csvfile=None):
-    filelist=glob.glob(f"{folder}/*.*")
+    stack = list()  # FIFO data-type
+    stack.append(folder)
+
     with open(csvfile, 'w') as f:
         csvw=csv.writer(f, quoting=csv.QUOTE_ALL, lineterminator='\n')
-        for idx, file in enumerate(sorted(filelist), start=1):
-            #if idx>10:break
-            path, fn=os.path.split(file)
-            filename, file_extension = os.path.splitext(fn)
-            logger.debug(f"The {idx}-th file {fn} under {path} with extension {file_extension[1:]}.")
-            csvw.writerow([fn,path,file_extension[1:],file])
+        while(len(stack)>0):
+            thisdir=stack.pop(0)
+            logger.info(f"Go through folder {thisdir}...")
+            filelist=glob.glob(f"{thisdir}/*")
+            for idx, file in enumerate(sorted(filelist), start=1):
+                if os.path.isdir(file):
+                    logger.info(f"Folder {file} need to go through...({idx})")
+                    stack.append(file)
+                elif os.path.isfile(file):
+                    path, fn=os.path.split(file)
+                    filename, file_extension = os.path.splitext(fn)
+                    st=os.stat(file)
+                    dt_fmt=datetime.fromtimestamp(st.st_ctime)
+                    #logger.debug(f"The {idx}-th file {fn} under {path} with extension {file_extension[1:]} size: {st.st_size} created at {st.st_ctime} or {dt_fmt}.")
+                    csvw.writerow([fn, path, file_extension[1:], file, st.st_size, dt_fmt])
+                else:
+                    logger.info(f"Not file or folder: {file}...({idx})")
     return True
 
 def mysql_showdb(mydb=None):
@@ -42,7 +57,10 @@ def mysql_csv2db(mydb=None, csvfile=None, tblnm=None):
     for x in mycursor:
         logger.info(x)
     logger.debug(f"Finish dropping {tblnm}")
-    mycursor.execute(f"create table {tblnm} (filename varchar(100), folder varchar(100), file_type varchar(20), fullpath varchar(400))")
+    query=f"create table {tblnm} (filename varchar(100), folder varchar(100)"
+    query=f"{query}, file_type varchar(20), fullpath varchar(400)"
+    query=f"{query}, filesize bigint, createtime timestamp)"
+    mycursor.execute(query)
     for x in mycursor:
         logger.info(x)
     logger.debug(f"Finish creating {tblnm}")
@@ -64,8 +82,9 @@ def mysql_csv2db(mydb=None, csvfile=None, tblnm=None):
     logger.debug(f"Finish load csv data to {tblnm}")
 
 def main(arg=None):
+    photo_dir="/mnt/photos/art"
     csvfile='/tmp/photo.csv'
-    get_photo_info(folder="/mnt/photos/chico", csvfile=csvfile)
+    get_photo_info(folder=photo_dir, csvfile=csvfile)
     #show_photo(file="/mnt/photos/chico/2015-11-08 15.15.57.jpg")
 
     try:
