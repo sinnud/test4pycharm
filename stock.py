@@ -7,6 +7,9 @@ from logzero import logger
 
 import yfinance as yf # stock data
 
+# local module
+from mysql_con import MySqlConnect, Pandas2MySql
+
 def main():
     # define the ticker symbol
     tickerSymbol = 'MSFT'
@@ -18,6 +21,18 @@ def main():
     tickerDf = tickerData.history(period='1d', start='2010-1-1', end='2020-1-25')
 
     logger.info(tickerDf.shape)
+    tblnm='ttt'
+    try:
+        mydb=MySqlConnect(database='stock')
+        mycursor = mydb.cursor()
+        mycursor.execute(f"drop table if exists {tblnm}")
+        mydb.close()
+        p2d=Pandas2MySql(pd=tickerDf, database='stock')
+        p2d.pdimport(tblnm)
+        p2d.close()
+    except:
+        logger.debug(traceback.format_exc())
+        return False
     return True
 
 if __name__ == '__main__':
