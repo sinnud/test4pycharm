@@ -38,13 +38,8 @@ class qidian(object):
         html=self.get_html(url)
         self.parse_html(html)
 if __name__ == '__main__':
-    # spider=qidian('https://book.qidian.com/info/1020580616#Catalog'
-    # , '/var/local/data/novel'
-    # , "大周仙吏"
-    # )
-    # spider.main()
-    spider=qidian('https://book.qidian.com/info/1010868264#Catalog'
+    spider=qidian('https://book.qidian.com/info/1020580616#Catalog'
     , '/var/local/data/novel'
-    , "诡秘之主_爱潜水的乌贼"
+    , "大周仙吏"
     )
     spider.main()
