@@ -18,7 +18,9 @@ class qidian(object):
         return html
     def parse_html(self,html):
         target=etree.HTML(html)
+        print(html)
         links=target.xpath('//ul[@class="cf"]/li/a/@href')
+        print(f"Number of links in html: {len(links)}")
         with open(self.target_dir + '/' + self.name + '.txt', 'a') as f:
             for link in links:
                 host='https:'+link
