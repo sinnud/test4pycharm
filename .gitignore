@@ -1,0 +1,4 @@
+# as python package example, some compiled folder will be ignored
+example_pkg/build
+example_pkg/dist/
+example_pkg/example_pkg_sinnud.egg-info/
