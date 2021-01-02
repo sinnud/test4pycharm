@@ -1,4 +1,10 @@
 # as python package example, some compiled folder will be ignored
 build
 dist
-example_pkg_sinnud.egg-info
+*.egg-info
+
+# doc folder
+docs
+
+# python cache
+__pycache__
