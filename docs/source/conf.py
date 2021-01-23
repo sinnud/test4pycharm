@@ -33,6 +33,8 @@ release = '0.0.1'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
+    'sphinx_rtd_theme',
+    'sphinx_sql.sphinx_sql',
     # LaTeX to PDF
     # 'rinoh.frontend.sphinx'
 ]

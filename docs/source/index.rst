@@ -32,3 +32,8 @@ PostgresqlUtils
    :members:
    :undoc-members:
    :show-inheritance:
+
+SQL Documentation
+^^^^^^^^^^^^^^^^^
+.. autosql::
+   :sqlsource: ../../sql
