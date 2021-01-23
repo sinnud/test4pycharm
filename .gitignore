@@ -5,6 +5,11 @@ dist
 
 # doc folder
 docs
+!docs/source/conf.py
+!docs/source/index.rst
 
 # python cache
 __pycache__
+
+# vscode
+.vscode

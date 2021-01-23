@@ -1,3 +1,5 @@
+""" Connect to PostgreSQL database
+"""
 import os
 import sys
 
@@ -10,6 +12,13 @@ import psycopg2
 import time
 
 class PostgresqlConnect(object):
+    """ class PostgresqlConnect to connect to postgresql database
+
+        :param host: postgresql host name (ip address)
+        :param user: user name in postgresql database
+        :param password: user password in postgresql database
+        :param database: the database name you like to connect
+    """
     def __init__(self
         , host='localhost'
         , user='sinnud'
@@ -24,11 +33,15 @@ class PostgresqlConnect(object):
         self.conn=None
 
     def __del__(self):
+        """ destructor method -- not show in doc
+        """
         if self.conn:
             self.conn.close()
             logger.debug(f"=== Disconnect to {self.host} with account {self.user} ===")
 
     def connect(self):
+        """ connect to database: method for :class:`PostgresqlConnect`
+        """
         self.conn = psycopg2.connect(self.conn_string)
         #self.conn.autocommit(True) # mssql
         self.conn.set_session(autocommit=True)
@@ -36,11 +49,19 @@ class PostgresqlConnect(object):
         logger.debug(f"=== Connect to {self.host} using account {self.user} ===")
 
     def cursor(self):
+        """ get cursor of connection to database
+        """
         if not self.conn: # or self.conn.closed:
             self.connect()
         return self.conn.cursor()
 
+    """ submit query to database -- not show in doc
+    """
     def execute(self, query):
+        """ ubmit query to database
+
+        :param query: string of query you like to submit
+        """
         if not self.conn or self.conn.closed:
             self.connect()
         logger.debug(f'RUNNING QUERY: {query}')
@@ -61,8 +82,15 @@ class PostgresqlConnect(object):
         logger.debug(f'====== Close {self.host} with account {self.user} ======')
         self.conn.close()
         
+""" test function -- not show in doc
+"""
 def main(arg=None):
+    """ test function
+    """
     psc = PostgresqlConnect()
+    """
+    test submitting queries -- not show in doc
+    """
     rst = psc.execute('set search_path=wdinfo')
     rst = psc.execute('select count(*) from sinnud')
     rst = psc.execute('drop table sinnud')

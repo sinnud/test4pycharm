@@ -28,3 +28,10 @@ from postgresql.utils import PostgresqlUtils
 psc = PostgresqlUtils(host='host_with_postgresql')
 psc.conn.execute('select count(*) from schema.table')
 ```
+
+## sphinx doc generation
+Under folder docs, run 
+```
+make html
+```
+Need Python module sphinx (sphinx-rtd-theme is you use this theme)
