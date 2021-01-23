@@ -3,10 +3,8 @@ build
 dist
 *.egg-info
 
-# doc folder
-docs
-!docs/source/conf.py
-!docs/source/index.rst
+# doc build folder
+docs/build
 
 # python cache
 __pycache__
