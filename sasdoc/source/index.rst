@@ -1,19 +1,18 @@
-.. sasmacro documentation master file, created by
-   sphinx-quickstart on Sat Jan 23 11:16:24 2021.
+.. tmp_test documentation master file, created by
+   sphinx-quickstart on Sun Nov  2 11:57:47 2014, modified by Andres later.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to sasmacro's documentation!
-====================================
+Welcome to auto-generated docs
+==============================
 
 Contents:
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
 
-
+   mysecondmacro
    myfirstmacro
-
 
 Indices and tables
 ==================
@@ -21,4 +20,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-

@@ -15,5 +15,3 @@ myfirstmacro
 
  
       myfirstmacro.sas
-
-      It does nothing but just show in doc
