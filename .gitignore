@@ -1,0 +1,16 @@
+# compile folder
+build/
+dist/
+
+# vscode
+.vscode
+
+# python cache
+__pycache__
+
+# doc build
+sasdoc/build
+
+# package install
+postgresql/
+postgresql*egg-info/
