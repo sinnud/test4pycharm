@@ -1,0 +1,5 @@
+# VS code configuration folder
+.vscode
+
+# log file
+*.log
