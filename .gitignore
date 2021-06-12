@@ -3,3 +3,9 @@
 
 # log file
 *.log
+
+# pycache
+__pycache__
+
+# test data
+tests/data

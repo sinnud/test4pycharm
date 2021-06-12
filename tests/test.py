@@ -95,7 +95,7 @@ def test_map_gen():
     logzero.logfile(mylog)
 
     logger.info(f'start python code {__file__}.\n')
-    # data_prepare()
+    '''
     json_df = f"{crt_dir}/data/datafile.json"
     with open(json_df, 'r') as f:
         json_data = f.read()
@@ -107,7 +107,7 @@ def test_map_gen():
     ju.table_plan_json()
     ju.json_map_export(map_file = f"{crt_dir}/map/ex_init.map")
     ju.postgres_ddl(sql_file = f"{crt_dir}/map/ex_init.sql", schema_name = 'work_ld')
-
+    '''
     logger.info(f'end python code {__file__}.\n')
 
 
